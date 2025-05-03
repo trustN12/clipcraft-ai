@@ -7,3 +7,4 @@
 - no eslint, no turbopack, no ts
 - tailwind@4
 - shadcn ui
+- framer-motion

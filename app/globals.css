@@ -122,23 +122,32 @@
 }
 
 
+
+
 /* LOADER */
 
-/* Custom Spinner: Orange Glow on Black */
+.spinner-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: black; /* Optional: dark background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* Spinner styles (your existing updated version with orange tones) */
 .spinner {
   width: 3em;
   height: 3em;
-  cursor: not-allowed;
   border-radius: 50%;
-  border: 2px solid #222; /* Darker border on black */
-  box-shadow: 
-    -10px -10px 10px #ff6a00, 
-    0px -10px 10px 0px #ff7f11, 
-    10px -10px 10px #ffaa00, 
-    10px 0 10px #ff8800, 
-    10px 10px 10px 0px #ff5500, 
-    0 10px 10px 0px #ff6a00, 
-    -10px 10px 10px 0px #ff8800;
+  border: 2px solid #222;
+  box-shadow: -10px -10px 10px #ff6a00, 0px -10px 10px 0px #ff7f11,
+    10px -10px 10px #ffaa00, 10px 0 10px #ff8800, 10px 10px 10px 0px #ff5500,
+    0 10px 10px 0px #ff6a00, -10px 10px 10px 0px #ff8800;
   animation: rot55 0.7s linear infinite;
   position: relative;
 }

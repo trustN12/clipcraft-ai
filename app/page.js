@@ -15,20 +15,18 @@ export default function Home() {
   return (
     <>
       {loading ? (
-        <div className="flex items-center justify-center min-h-screen">
+        <div className="spinner-wrapper">
           <div className="spinner">
             <div className="spinnerin"></div>
           </div>
         </div>
       ) : (
         <div className="md:px-5 lg:px-10 xl:px-12">
-
           {/* HEADER */}
           <Header />
-          
+
           {/* HERO */}
           <Hero />
-
         </div>
       )}
     </>
