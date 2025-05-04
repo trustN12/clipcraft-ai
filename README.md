@@ -8,3 +8,5 @@
 - tailwind@4
 - shadcn ui
 - framer-motion
+- firebase authentication using google sign-in only
+- convex@1.24.0 for database integration for saving all data

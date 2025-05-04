@@ -122,6 +122,22 @@
 }
 
 
+@keyframes wave {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.shadow-neon-orange {
+  box-shadow: 0 0 15px #ff8800, 0 0 30px #ff8800, 0 0 45px #ff8800;
+}
+.drop-shadow-neon-orange {
+  filter: drop-shadow(0 0 8px #ff8800);
+}
+
+
+
+
+
 
 
 /* LOADER */
