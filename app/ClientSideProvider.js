@@ -17,14 +17,15 @@ const ClientSideProvider = ({ children }) => {
     const unSubscribe = onAuthStateChanged(auth, async (user) => {
       setLoading(false); // Once the auth state is known, we stop loading
 
-      if (user && user.displayName && user.email && user.photoURL) {
+      if (user && user?.displayName && user?.email && user?.photoURL) {
         try {
           const result = await CreateUser({
-            name: user.displayName,
-            email: user.email,
-            pictureURL: user.photoURL
+            name: user?.displayName,
+            email: user?.email,
+            pictureURL: user?.photoURL,
           });
           console.log(result);
+          setUser(result);
         } catch (error) {
           console.error("Error creating user:", error);
         }
@@ -34,14 +35,18 @@ const ClientSideProvider = ({ children }) => {
         console.error("User data is incomplete:", user);
       }
       
-      setUser(user); // Update the user state after checking
+      // setUser(user); // Update the user state after checking
     });
 
     return () => unSubscribe(); // Clean up the subscription when the component unmounts
   }, [CreateUser]);
 
   if (loading) {
-    return <div>Loading...</div>; // Show loading state while waiting for Firebase Auth
+    return <div className="spinner-wrapper">
+          <div className="spinner">
+            <div className="spinnerin"></div>
+          </div>
+        </div>; // Show loading state while waiting for Firebase Auth
   }
 
   return (

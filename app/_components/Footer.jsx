@@ -4,8 +4,22 @@ import { Github, Mail, Phone } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useAuthContext } from "../ClientSideProvider";
+import toast from "react-hot-toast";
 
 export default function Footer() {
+  const { user } = useAuthContext();
+  const router = useRouter(); // Hook to use Next.js router
+
+  const handleDashboardClick = () => {
+    if (user) {
+      router.push("/dashboard");
+    } else {
+      toast.error("Please sign in first!");
+    } // Navigate programmatically to dashboard
+  };
+
   return (
     <motion.footer
       initial={{ opacity: 0, y: 40 }}
@@ -80,10 +94,26 @@ export default function Footer() {
           </h4>
           <ul className="text-gray-300 space-y-2 text-sm">
             <li className="hover:text-orange-300 transition duration-300">
-              <Link href="/">Home</Link>
+              <a
+                href="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  router.push("/");
+                }}
+              >
+                Home
+              </a>
             </li>
             <li className="hover:text-orange-300 transition duration-300">
-              <Link href="/dashboard">Dashboard</Link>
+              <a
+                href="/dashboard"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleDashboardClick(); // Handle click without full page reload
+                }}
+              >
+                Dashboard
+              </a>
             </li>
           </ul>
         </div>

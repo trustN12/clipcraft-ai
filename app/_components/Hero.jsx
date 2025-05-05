@@ -2,9 +2,22 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import Authentication from "./Authentication";
+import { useAuthContext } from "../ClientSideProvider";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const Hero = () => {
+  const { user } = useAuthContext();
+  const router = useRouter();
+
+  const handleCreateClick = () => {
+    if (user) {
+      router.push("/dashboard/create-video");
+    } else {
+      toast.error("Please sign in first!");
+    }
+  };
+
   return (
     <div className="overflow-hidden px-6 mt-40 flex flex-col items-center justify-center">
       {/* Gradient Glow */}
@@ -40,12 +53,13 @@ const Hero = () => {
         className="mt-10 flex flex-col sm:flex-row items-center gap-5"
       >
         {/* Primary CTA */}
-        <Authentication>
-        <button className="group cursor-pointer relative px-7 py-2 bg-orange-500 text-white font-semibold  rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:scale-105">
+        <button
+          onClick={handleCreateClick}
+          className="group cursor-pointer relative px-7 py-2 bg-orange-500 text-white font-semibold rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:scale-105"
+        >
           <span className="relative z-10">Create Now</span>
           <span className="absolute inset-0 bg-orange-600 opacity-0 group-hover:opacity-100 transition duration-300" />
         </button>
-        </Authentication>
 
         {/* Secondary CTA */}
         <button className="relative cursor-pointer px-7 py-2 text-white font-medium rounded-lg border border-white/20 backdrop-blur-md bg-white/5 hover:bg-white/10 hover:border-orange-400 transition-all duration-300">

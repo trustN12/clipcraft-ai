@@ -1,6 +1,7 @@
 import { Nunito_Sans } from "next/font/google";
 import "./globals.css";
 import ConvexClientProvider from "./ConvexClientProvider";
+import { Toaster } from "react-hot-toast";
 
 const myFont = Nunito_Sans({ subsets: ["latin"] });
 
@@ -13,7 +14,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning={true}>
       <body className={myFont.className} cz-shortcut-listen="true">
-        <ConvexClientProvider>{children}</ConvexClientProvider>
+        <ConvexClientProvider>
+        <Toaster position="bottom-right" />
+
+          {children}</ConvexClientProvider>
       </body>
     </html>
   );

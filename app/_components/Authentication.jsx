@@ -3,6 +3,7 @@
 import { auth } from "@/configs/firebaseConfig";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import React from "react";
+import toast from "react-hot-toast";
 
 const Authentication = ({ children }) => {
   const provider = new GoogleAuthProvider();
@@ -17,7 +18,9 @@ const Authentication = ({ children }) => {
         const user = result.user;
         // IdP data available using getAdditionalUserInfo(result)
         // ...
-        console.log(user);
+        // console.log(user);
+
+        toast.success("Signed in successfully!");
       })
       .catch((error) => {
         // Handle Errors here.
@@ -27,6 +30,7 @@ const Authentication = ({ children }) => {
         const email = error.customData.email;
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
+        toast.error("Sign-in failed. Please try again.");
         // ...
       });
   };
