@@ -39,17 +39,17 @@ const options = [
   },
   {
     title: "Create Video",
-    url: "/dashboard/create-video",
+    url: "/create-video",
     icon: LucideVideo,
   },
   {
     title: "Explore",
-    url: "/dashboard/explore-clipcraft-ai",
+    url: "/explore-clipcraft-ai",
     icon: SearchIcon,
   },
   {
     title: "Upgrade",
-    url: "/dashboard/billing",
+    url: "/billing",
     icon: Shield,
   },
 ];
@@ -84,7 +84,7 @@ export function AppSidebar() {
             </Link>
           </div>
 
-          <h2 className="text-center text-lg mt-3 text-gray-500">
+          <h2 className="text-center text-lg mt-1 text-gray-500">
             AI Short Video Generator
           </h2>
         </div>
@@ -93,9 +93,11 @@ export function AppSidebar() {
         <SidebarGroup>
           <SidebarGroupContent>
             <div className="mx-5 mt-16">
-              <Button className="w-full cursor-pointer px-5 py-2  text-sm sm:text-base font-medium text-white bg-gradient-to-r from-orange-500 via-pink-500 to-yellow-400 rounded-xl shadow-[0_4px_20px_rgba(255,150,50,0.3)] transition-all duration-300 hover:scale-[1.04] hover:shadow-[0_4px_30px_rgba(255,180,100,0.5)]">
-                Create Now <VideoIcon />
-              </Button>
+              <Link href={"/create-video"}>
+                <Button className="w-full cursor-pointer px-5 py-2  text-sm sm:text-base font-medium text-white bg-gradient-to-r from-orange-500 via-pink-500 to-yellow-400 rounded-xl shadow-[0_4px_20px_rgba(255,150,50,0.3)] transition-all duration-300 hover:scale-[1.04] hover:shadow-[0_4px_30px_rgba(255,180,100,0.5)]">
+                  Create Now <VideoIcon />
+                </Button>
+              </Link>
             </div>
 
             {/* all the menu items */}
@@ -143,6 +145,13 @@ export function AppSidebar() {
             Sign out <LogOut />
           </Button>
         </div>
+
+        <div className="relative z-10 border-t border-white/10 px-4 md:px-4 lg:px-2 py-4 text-center text-sm text-gray-500">
+        © {new Date().getFullYear()}{" "}
+        <span className="text-orange-400 font-semibold">Clipcraft AI</span>. All
+        rights reserved. Crafted by{" "}
+        <span className="text-orange-300 font-medium">Nabarun B</span>.
+      </div>
       </SidebarFooter>
     </Sidebar>
   );

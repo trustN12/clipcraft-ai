@@ -21,7 +21,7 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="mx-7">
+    <div className="">
       <h1 className="text-2xl">
         Welcome,{" "}<span className="text-4xl font-extrabold bg-gradient-to-r from-orange-400 via-yellow-400 to-pink-500 bg-clip-text text-transparent tracking-tight drop-shadow-[0_0_8px_#ff9900aa]">
         {user?.name &&

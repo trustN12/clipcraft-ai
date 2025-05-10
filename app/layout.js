@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning={true}>
       <body className={myFont.className} cz-shortcut-listen="true">
         <ConvexClientProvider>
-        <Toaster position="bottom-right" />
+        <Toaster position="top-right" />
 
           {children}</ConvexClientProvider>
       </body>

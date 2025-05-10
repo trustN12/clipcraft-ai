@@ -30,7 +30,7 @@ const Authentication = ({ children }) => {
         const email = error.customData.email;
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
-        toast.error("Sign-in failed. Please try again.");
+        toast.error("Network error. Please try again.");
         // ...
       });
   };

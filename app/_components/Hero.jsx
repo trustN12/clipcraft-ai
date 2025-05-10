@@ -12,7 +12,7 @@ const Hero = () => {
 
   const handleCreateClick = () => {
     if (user) {
-      router.push("/dashboard/create-video");
+      router.push("create-video");
     } else {
       toast.error("Please sign in first!");
     }
