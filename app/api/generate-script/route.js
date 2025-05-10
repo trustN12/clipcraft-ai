@@ -1,6 +1,6 @@
 // app/api/generate-script/route.js
 
-import { generateScript } from "@/configs/aiModel";
+import { generateScript } from "@/configs/AiModel";
 import { NextResponse } from "next/server";
 
 const SCRIPT_PROMPT = `write a two different script for 30 Seconds video on Topic:{topic},
