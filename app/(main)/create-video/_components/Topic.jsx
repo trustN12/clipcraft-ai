@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { CopyIcon, Loader2Icon, Zap } from "lucide-react";
+import { CircleCheck, CopyIcon, Loader2Icon, Zap } from "lucide-react";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 
@@ -64,7 +64,7 @@ const itemVariants = {
 };
 
 const Topic = ({ onHandleInputChangeMethod }) => {
-  const [selectTopic, setSelectedTopic] = useState("");
+  const [selectTopic, setSelectedTopic] = useState();
   const [generatedScripts, setGeneratedScripts] = useState(null); // State to hold generated scripts
   const [loading, setLoading] = useState(false);
 
@@ -165,46 +165,56 @@ const Topic = ({ onHandleInputChangeMethod }) => {
       {/* Display Generated Scripts */}
 
       {generatedScripts?.length > 0 && (
-        <motion.div
-          className="mt-7 space-y-4"
-          variants={containerVariants}
-          initial="hidden"
-          animate="show"
-        >
-          <motion.h3
-            className="text-lg font-semibold text-white"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-          >
-            ✨ Select Your Script:
-          </motion.h3>
+  <motion.div
+    className="mt-7 space-y-4"
+    variants={containerVariants}
+    initial="hidden"
+    animate="show"
+  >
+    <motion.h3
+      className="text-lg font-semibold text-white"
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
+      ✨ Select Your Script:
+    </motion.h3>
 
-          {generatedScripts.map((script, index) => (
-            <motion.div
-              key={index}
-              className="p-4 rounded-xl border text-sm text-gray-300 bg-gradient-to-br from-[#1e1e1e] to-[#2a2a2a] border-[#333] shadow-md relative"
-              variants={itemVariants}
-              whileHover={{
-                scale: 1.03,
-                boxShadow:
-                  "0 0 15px rgba(255, 150, 50, 0.4), 0 0 30px rgba(255, 100, 150, 0.2)",
-                borderColor: "#ff944d",
-              }}
-              whileTap={{ scale: 0.97 }}
-            >
-              <button
-                onClick={() => copyToClipboard(script.content)}
-                className="absolute cursor-pointer bottom-2 right-2 text-gray-400 hover:text-white transition"
-                title="Copy"
-              >
-                <CopyIcon size={18} />
-              </button>
-              <p className="whitespace-pre-wrap">{script.content}</p>
-            </motion.div>
-          ))}
-        </motion.div>
-      )}
+    {generatedScripts.map((script, index) => (
+      <motion.div
+        key={index}
+        className={`p-4 rounded-xl border text-sm text-gray-300 bg-gradient-to-br from-[#1e1e1e] to-[#2a2a2a] border-[#333] shadow-md relative ${
+          selectTopic === index ? "bg-orange-600 border-orange-700" : ""
+        }`} // Apply the active class for selected script
+        variants={itemVariants}
+        whileHover={{
+          scale: 1.03,
+          boxShadow:
+            "0 0 15px rgba(255, 150, 50, 0.4), 0 0 30px rgba(255, 100, 150, 0.2)",
+          borderColor: "#ff944d",
+        }}
+        whileTap={{ scale: 0.97 }}
+      >
+        <button
+          onClick={() => {
+            setSelectedTopic(index); // Now selects the script on click
+            onHandleInputChangeMethod({
+              fieldName: "script",
+              fieldValue: script.content,
+            });
+            toast.success("Script selected successfully!"); 
+          }}
+          className="absolute cursor-pointer bottom-2 right-2 text-gray-400 hover:text-white transition"
+          title="Copy"
+        >
+          <CircleCheck size={22} className="animate-pulse text-orange-500" />
+        </button>
+        <p className="whitespace-pre-wrap">{script.content}</p>
+      </motion.div>
+    ))}
+  </motion.div>
+)}
+
 
       {/* Generate Button */}
       <motion.div

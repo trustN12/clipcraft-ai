@@ -8,6 +8,7 @@ import Captions from "./_components/Captions";
 import { Button } from "@/components/ui/button";
 import { WandSparklesIcon } from "lucide-react";
 import Preview from "./_components/Preview";
+import axios from "axios";
 
 const CreateVideo = () => {
   const [formData, setFormData] = useState({});
@@ -23,6 +24,20 @@ const CreateVideo = () => {
     }));
   };
 
+  const GenerateVideo = async () => {
+    console.log("Form Data before validation:", formData); // Debugging line
+    if (!formData?.topic || !formData?.script || !formData?.videoStyle || !formData?.caption || !formData?.voiceStyle) {
+      console.log("error", "enter all fields");
+      return;
+    }
+  
+    const result = await axios.post('/api/generate-video-data', {
+      ...formData
+    });
+    console.log(result);
+  }
+  
+
   return (
     <div>
       <h2 className="text-3xl">Create New Video</h2>
@@ -37,7 +52,8 @@ const CreateVideo = () => {
           {/* Captions */}
           <Captions onHandleInputChangeMethod={onHandleInputChangeMethod} />
           {/* Button */}
-          <Button className='mt-5 w-full className="w-full cursor-pointer text-sm sm:text-base font-medium text-white bg-gradient-to-r from-orange-500 via-pink-500 to-yellow-400 rounded-xl shadow-[0_4px_20px_rgba(255,150,50,0.3)] transition-all duration-300 hover:scale-[1.04] hover:shadow-[0_4px_30px_rgba(255,180,100,0.5)] hover:font-semibold disabled:opacity-70 disabled:cursor-not-allowed"'>
+          <Button className="mt-5 w-full cursor-pointer text-sm sm:text-base font-medium text-white bg-gradient-to-r from-orange-500 via-pink-500 to-yellow-400 rounded-xl shadow-[0_4px_20px_rgba(255,150,50,0.3)] transition-all duration-300 hover:scale-[1.04] hover:shadow-[0_4px_30px_rgba(255,180,100,0.5)] hover:font-semibold disabled:opacity-70 disabled:cursor-not-allowed" 
+          onClick={GenerateVideo} >
             <WandSparklesIcon />
             Create Video
           </Button>

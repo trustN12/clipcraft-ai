@@ -40,7 +40,7 @@ const Preview = ({ formData }) => {
         )}
 
         {/* Cinematic Overlay */}
-        {hasImage && (
+        {hasImage && formData?.caption && (
           <>
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/5 to-transparent" />
 
@@ -52,10 +52,10 @@ const Preview = ({ formData }) => {
             >
               <h2
                 className={`text-lg sm:text-2xl md:text-3xl font-extrabold ${
-                  formData?.caption?.style || ""
+                  formData.caption.style || ""
                 }`}
               >
-                {formData?.caption?.name}
+                {formData.caption.name}
               </h2>
             </motion.div>
           </>

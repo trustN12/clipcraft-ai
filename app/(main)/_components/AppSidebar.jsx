@@ -80,6 +80,7 @@ export function AppSidebar() {
                 alt="ClipCraft Logo"
                 width={170}
                 height={170}
+                className="w-auto h-auto"
               />
             </Link>
           </div>

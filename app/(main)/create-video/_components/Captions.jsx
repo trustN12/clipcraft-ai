@@ -7,12 +7,12 @@ const captions = [
   {
     name: "Youtuber",
     style:
-      "text-yellow-400 text-2xl font-extrabold uppercase tracking-[0.1em]  drop-shadow-[0_0_10px_#ff6a00] animate-pulse",
+      "text-yellow-400 text-xl font-extrabold uppercase tracking-[0.1em]  drop-shadow-[0_0_10px_#ff6a00] animate-pulse",
   },
   {
     name: "Glitch",
     style:
-      "text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-pink-500 to-fuchsia-500 text-3xl font-extrabold uppercase tracking-wide drop-shadow-[0_0_8px_#ff00c8] animate-glitch",
+      "text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-pink-500 to-fuchsia-500 text-xl font-extrabold uppercase tracking-wide drop-shadow-[0_0_8px_#ff00c8] animate-glitch",
   },
   {
     name: "Neon",
@@ -27,12 +27,12 @@ const captions = [
   {
     name: "Cinematic",
     style:
-      "text-white text-2xl font-black tracking-[0.1em] uppercase bg-opacity-10 drop-shadow-[0_0_10px_#ffffff] animate-cinema hover:bg-black/40",
+      "text-white text-xl font-black tracking-[0.1em] uppercase bg-opacity-10 drop-shadow-[0_0_10px_#ffffff] animate-cinema hover:bg-black/40",
   },
   {
     name: "FinalCut",
     style:
-      "text-transparent text-3xl font-bold bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-500 to-purple-600 drop-shadow-[0_0_10px_#22d3ee] animate-glow",
+      "text-transparent text-xl font-bold bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-500 to-purple-600 drop-shadow-[0_0_10px_#22d3ee] animate-glow",
   },
   {
     name: "VFX",
@@ -47,7 +47,7 @@ const captions = [
   {
     name: "Motivational",
     style:
-      "text-transparent text-2xl font-bold bg-clip-text bg-gradient-to-r from-orange-400 to-yellow-500 drop-shadow-[0_0_8px_#ff6ec7] hover:animate-pulse",
+      "text-transparent text-xl font-bold bg-clip-text bg-gradient-to-r from-orange-400 to-yellow-500 drop-shadow-[0_0_8px_#ff6ec7] hover:animate-pulse",
   },
   {
     name: "Retro",
@@ -57,7 +57,7 @@ const captions = [
   {
     name: "Cyberpunk",
     style:
-      "text-transparent text-3xl font-semibold bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-600 drop-shadow-[0_0_10px_#4c00d1] animate-pulse",
+      "text-transparent text-xl font-semibold bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-600 drop-shadow-[0_0_10px_#4c00d1] animate-pulse",
   },
   {
     name: "Pulse",
@@ -67,7 +67,7 @@ const captions = [
 ];
 
 const Captions = ({ onHandleInputChangeMethod }) => {
-  const [selectStyle, setSelectStyle] = useState(null);
+  const [selectStyle, setSelectStyle] = useState();
 
   return (
     <div className="mt-20 px-4 max-w-6xl mx-auto">
@@ -106,7 +106,7 @@ const Captions = ({ onHandleInputChangeMethod }) => {
               setSelectStyle(caption.name);
               onHandleInputChangeMethod({
                 fieldName: "caption",
-                fieldValue: caption,
+                fieldValue: caption, // Pass entire caption object here
               });
             }}
           >
@@ -119,3 +119,4 @@ const Captions = ({ onHandleInputChangeMethod }) => {
 };
 
 export default Captions;
+
