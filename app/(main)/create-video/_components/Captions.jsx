@@ -7,7 +7,7 @@ const captions = [
   {
     name: "Youtuber",
     style:
-      "text-yellow-400 text-4xl font-extrabold uppercase tracking-widest drop-shadow-[0_0_10px_#ff6a00] animate-pulse",
+      "text-yellow-400 text-2xl font-extrabold uppercase tracking-[0.1em]  drop-shadow-[0_0_10px_#ff6a00] animate-pulse",
   },
   {
     name: "Glitch",
@@ -27,7 +27,7 @@ const captions = [
   {
     name: "Cinematic",
     style:
-      "text-white text-3xl font-black tracking-[0.2em] uppercase bg-opacity-10 drop-shadow-[0_0_10px_#ffffff] animate-cinema hover:bg-black/40",
+      "text-white text-2xl font-black tracking-[0.1em] uppercase bg-opacity-10 drop-shadow-[0_0_10px_#ffffff] animate-cinema hover:bg-black/40",
   },
   {
     name: "FinalCut",
@@ -47,7 +47,7 @@ const captions = [
   {
     name: "Motivational",
     style:
-      "text-transparent text-3xl font-bold bg-clip-text bg-gradient-to-r from-orange-400 to-yellow-500 drop-shadow-[0_0_8px_#ff6ec7] hover:animate-pulse",
+      "text-transparent text-2xl font-bold bg-clip-text bg-gradient-to-r from-orange-400 to-yellow-500 drop-shadow-[0_0_8px_#ff6ec7] hover:animate-pulse",
   },
   {
     name: "Retro",
@@ -85,7 +85,7 @@ const Captions = ({ onHandleInputChangeMethod }) => {
       </p>
 
       <motion.div
-        className="grid sm:grid-cols-2 md:grid-cols-3 gap-6"
+        className="grid sm:grid-cols-2 md:grid-cols-3 gap-8 sm:gap-6 md:gap-8"
         initial="hidden"
         animate="visible"
         variants={{
@@ -95,16 +95,19 @@ const Captions = ({ onHandleInputChangeMethod }) => {
         {captions.map((caption, index) => (
           <motion.div
             key={index}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className={`cursor-pointer p-4 rounded-lg transition-all duration-300 border-2 ${
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.97 }}
+            className={`cursor-pointer p-4 rounded-lg transition-all duration-300 border-2 overflow-hidden will-change-transform ${
               selectStyle === caption.name
                 ? "border-pink-500 bg-white/10 animate-pulse"
                 : "border-transparent hover:border-orange-400"
             }`}
             onClick={() => {
               setSelectStyle(caption.name);
-              onHandleInputChangeMethod(caption);
+              onHandleInputChangeMethod({
+                fieldName: "caption",
+                fieldValue: caption,
+              });
             }}
           >
             <h2 className={`${caption.style} text-center`}>{caption.name}</h2>

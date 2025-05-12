@@ -3,7 +3,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 
-const options = [
+export const options = [
   { name: "Realistic", image: "/Realistic.jpg" },
   { name: "Ghibli", image: "/Ghibli.jpg" },
   { name: "Comic", image: "/Comic.jpg" },
