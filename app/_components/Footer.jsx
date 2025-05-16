@@ -6,7 +6,8 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useAuthContext } from "../ClientSideProvider";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
+
 
 export default function Footer() {
   const { user } = useAuthContext();

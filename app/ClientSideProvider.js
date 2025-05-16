@@ -30,7 +30,8 @@ const ClientSideProvider = ({ children }) => {
           console.error("Error creating user:", error);
         }
       } else if (user === null) {
-        console.log("User is logged out or not authenticated.");
+        // console.log("User is logged out or not authenticated.");
+        setUser(null);
       } else {
         console.error("User data is incomplete:", user);
       }

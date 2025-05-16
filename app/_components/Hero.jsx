@@ -4,7 +4,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import { useAuthContext } from "../ClientSideProvider";
 import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
+
 
 const Hero = () => {
   const { user } = useAuthContext();

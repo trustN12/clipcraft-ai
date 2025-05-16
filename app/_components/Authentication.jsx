@@ -3,7 +3,8 @@
 import { auth } from "@/configs/firebaseConfig";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import React from "react";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
+
 
 const Authentication = ({ children }) => {
   const provider = new GoogleAuthProvider();

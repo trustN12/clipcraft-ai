@@ -27,9 +27,9 @@ import {
 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { signOut } from "firebase/auth";
-import toast from "react-hot-toast";
 import { auth } from "@/configs/firebaseConfig";
 import { useAuthContext } from "@/app/ClientSideProvider";
+import { toast } from "sonner";
 
 const options = [
   {
