@@ -6,7 +6,7 @@ import VideoStyle from "./_components/VideoStyle";
 import Voice from "./_components/Voice";
 import Captions from "./_components/Captions";
 import { Button } from "@/components/ui/button";
-import { WandSparklesIcon } from "lucide-react";
+import { Loader2Icon, WandSparklesIcon } from "lucide-react";
 import Preview from "./_components/Preview";
 import axios from "axios";
 import { useMutation } from "convex/react";
