@@ -12,7 +12,7 @@ const ImagePromptScript = `Generate Image prompt of {style} style with all detai
       imagePrompt:'',
       sceneContent: '<Script Content>'
     }
-]`
+]`;
 
 export const helloWorld = inngest.createFunction(
   { id: "hello-world" },
@@ -67,32 +67,57 @@ export const GenerateVideoData = inngest.createFunction(
     });
 
     // generate image prompt scripts
-    const generateImagePrompts = await step.run("GenerateImagePrompt", async () => {
-      const FINAL_PROMPT = ImagePromptScript.replace('{style}', videoStyle).replace('{script}', script);
-      console.log('Final prompt:', FINAL_PROMPT); // Log the final prompt for debugging
-      const result = await generateImageScript(FINAL_PROMPT); // Pass the full prompt
-      console.log('Response from generateImageScript:', result); // Log the response
-      return result; // Return the result
-  });
-  
-  
+    const generateImagePrompts = await step.run(
+      "GenerateImagePrompt",
+      async () => {
+        const FINAL_PROMPT = ImagePromptScript.replace(
+          "{style}",
+          videoStyle
+        ).replace("{script}", script);
+        console.log("Final prompt:", FINAL_PROMPT); // Log the final prompt for debugging
+        const result = await generateImageScript(FINAL_PROMPT); // Pass the full prompt
+        console.log("Response from generateImageScript:", result); // Log the response
+        return result; // Return the result
+      }
+    );
 
     // generate images using ai model
+    const generateImages = await step.run("GenerateImages", async () => {
+      let images = [];
+      images = await Promise.all(
+        generateImagePrompts.map(async (element) => {
+          const result = await axios.post(
+            BASE_URL + "/api/generate-image",
+            {
+              width: 1024,
+              height: 1024,
+              input: element?.imagePrompt,
+              model: "sdxl", //'flux'
+              aspectRatio: "1:1", //Applicable to Flux model only
+            },
+            {
+              headers: {
+                "x-api-key": process.env.NEXT_PUBLIC_AIGURULAB_API_KEY, // Your API Key
+                "Content-Type": "application/json", // Content Type
+              },
+            }
+          );
+          console.log(result.data.image); //Output Result: Base 64 Image
+          return result.data.image;
+        })
+      );
+
+      return images;
+    });
 
     //save all data to convex database
 
     // return generateAudioFile;
     // return generateCaptions;
-    return generateImagePrompts;
+    // return generateImagePrompts;
+    return generateImages;
   }
 );
-
-
-
-
-
-
-
 
 // const generateImagePrompts = await step.run("GenerateImagePrompt", async () => {
 //   const FINAL_PROMPT = ImagePromptScript.replace('{style}', videoStyle).replace('{script}', script);
