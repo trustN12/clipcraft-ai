@@ -9,6 +9,6 @@
 - shadcn ui
 - framer-motion
 - firebase authentication using google sign-in only
-- convex@1.24.0 for database integration for saving all data
+- convex@1.24.0 for database integration for saving all data (npx convex dev)
 - Google GEMINI API(genAI)
 - Inngest@3.35.1 for AI & BACKEND WORKFLOWS(http://localhost:8288/runs)

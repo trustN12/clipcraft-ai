@@ -9,9 +9,16 @@ import { Button } from "@/components/ui/button";
 import { WandSparklesIcon } from "lucide-react";
 import Preview from "./_components/Preview";
 import axios from "axios";
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { useAuthContext } from "@/app/ClientSideProvider";
+import toast from "react-hot-toast";
 
 const CreateVideo = () => {
   const [formData, setFormData] = useState({});
+  const [loading, setLoading] = useState(false);
+  const { user } = useAuthContext();
+  const CreateInitialVideoRecord = useMutation(api.videoData.createVideoData);
 
   useEffect(() => {
     console.log("Updated formData:", formData);
@@ -25,18 +32,42 @@ const CreateVideo = () => {
   };
 
   const GenerateVideo = async () => {
-    console.log("Form Data before validation:", formData); // Debugging line
-    if (!formData?.topic || !formData?.script || !formData?.videoStyle || !formData?.caption || !formData?.voiceStyle) {
-      console.log("error", "enter all fields");
+    if (
+      !formData?.topic ||
+      !formData?.script ||
+      !formData?.videoStyle ||
+      !formData?.caption ||
+      !formData?.voiceStyle
+    ) {
+      toast.error("Please complete all fields before generating the video.");
       return;
     }
-  
-    const result = await axios.post('/api/generate-video-data', {
-      ...formData
-    });
-    console.log(result);
-  }
-  
+
+    try {
+      setLoading(true); // ✅ Start loading
+      const resp = await CreateInitialVideoRecord({
+        title: formData.title,
+        topic: formData.topic,
+        script: formData.script,
+        videoStyle: formData.videoStyle,
+        caption: formData.caption,
+        voice: formData.voiceStyle,
+        uid: user?._id,
+        createdBy: user?.email,
+      });
+      console.log(resp);
+      toast.success("Video data created successfully!");
+    } catch (error) {
+      console.error("Video creation failed:", error);
+      toast.error("Something went wrong!");
+    } finally {
+      const result = await axios.post("/api/generate-video-data", {
+        ...formData,
+      });
+      console.log(result);
+      setLoading(false); // ✅ End loading
+    }
+  };
 
   return (
     <div>
@@ -52,10 +83,17 @@ const CreateVideo = () => {
           {/* Captions */}
           <Captions onHandleInputChangeMethod={onHandleInputChangeMethod} />
           {/* Button */}
-          <Button className="mt-5 w-full cursor-pointer text-sm sm:text-base font-medium text-white bg-gradient-to-r from-orange-500 via-pink-500 to-yellow-400 rounded-xl shadow-[0_4px_20px_rgba(255,150,50,0.3)] transition-all duration-300 hover:scale-[1.04] hover:shadow-[0_4px_30px_rgba(255,180,100,0.5)] hover:font-semibold disabled:opacity-70 disabled:cursor-not-allowed" 
-          onClick={GenerateVideo} >
-            <WandSparklesIcon />
-            Create Video
+          <Button
+            onClick={GenerateVideo}
+            disabled={loading}
+            className="w-full cursor-pointer mt-6 text-sm sm:text-base font-medium text-white bg-gradient-to-r from-purple-500 via-pink-500 to-orange-400 rounded-xl shadow-[0_4px_20px_rgba(255,150,50,0.3)] transition-all duration-300 hover:scale-[1.04] hover:shadow-[0_4px_30px_rgba(255,180,100,0.5)] disabled:opacity-70 disabled:cursor-not-allowed"
+          >
+            {loading ? (
+              <Loader2Icon className="animate-spin mr-2 h-5 w-5" />
+            ) : (
+              <WandSparklesIcon className="mr-2 h-5 w-5" />
+            )}
+            Generate Video
           </Button>
         </div>
         <div className="div">
