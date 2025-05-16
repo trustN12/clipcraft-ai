@@ -93,7 +93,7 @@ const CreateVideo = () => {
             ) : (
               <WandSparklesIcon className="mr-2 h-5 w-5" />
             )}
-            Generate Video
+            Create Video
           </Button>
         </div>
         <div className="div">

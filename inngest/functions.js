@@ -1,5 +1,6 @@
 import axios from "axios";
 import { inngest } from "./client";
+import { createClient } from "@deepgram/sdk";
 
 export const helloWorld = inngest.createFunction(
   { id: "hello-world" },
@@ -19,23 +20,39 @@ export const GenerateVideoData = inngest.createFunction(
 
     // generate audio
     const generateAudioFile = await step.run("GenerateAudioFile", async () => {
-      const result = await axios.post(
-        BASE_URL + "/api/text-to-speech",
+      // const result = await axios.post(
+      //   BASE_URL + "/api/text-to-speech",
+      //   {
+      //     input: script,
+      //     voice: voice,
+      //   },
+      //   {
+      //     headers: {
+      //       "x-api-key": process.env.NEXT_PUBLIC_AIGURULAB_API_KEY, // Your API Key
+      //       "Content-Type": "application/json", // Content Type
+      //     },
+      //   }
+      // );
+      // console.log(result.data.audio); //Output Result: Audio Mp3 Url
+      // return result.data.audio;
+
+      return "https://firebasestorage.googleapis.com/v0/b/projects-2025-71366.firebasestorage.app/o/audio%2F1747086060958.mp3?alt=media&token=c62e7fe9-61bd-454f-a23b-1221e16e2aab";
+    });
+
+    // generate captions
+    const generateCaptions = await step.run("GenerateCaptions", async () => {
+      const deepgram = createClient(process.env.NEXT_PUBLIC_DEEPGRAM_API_KEY);
+      const { result, error } = await deepgram.listen.prerecorded.transcribeUrl(
         {
-          input: script,
-          voice: voice,
+          url: generateAudioFile,
         },
         {
-          headers: {
-            "x-api-key": process.env.NEXT_PUBLIC_AIGURULAB_API_KEY, // Your API Key
-            "Content-Type": "application/json", // Content Type
-          },
+          model: "nova",
         }
       );
-      console.log(result.data.audio); //Output Result: Audio Mp3 Url
-      return result.data.audio;
+
+      return result.results?.channels[0]?.alternatives[0]?.words;
     });
-    // generate captions
 
     // generate image prompt scripts
 
@@ -43,6 +60,7 @@ export const GenerateVideoData = inngest.createFunction(
 
     //save all data to convex database
 
-    return generateAudioFile;
+    // return generateAudioFile;
+    return generateCaptions;
   }
 );

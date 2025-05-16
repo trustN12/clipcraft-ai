@@ -236,7 +236,7 @@ const Topic = ({ onHandleInputChangeMethod }) => {
           ) : (
             <Zap className="animate-pulse mr-2 inline-block" />
           )}
-          {generatedScripts ? "Re-generate" : "Generate"}
+          {generatedScripts ? "Re-generate" : "Generate Script"}
         </Button>
       </motion.div>
     </div>

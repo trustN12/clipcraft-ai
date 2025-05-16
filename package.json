@@ -10,6 +10,7 @@
     "i-dev": "npx inngest-cli@latest dev"
   },
   "dependencies": {
+    "@deepgram/sdk": "^4.1.1",
     "@google/genai": "^0.13.0",
     "@radix-ui/react-dialog": "^1.1.11",
     "@radix-ui/react-scroll-area": "^1.2.8",
