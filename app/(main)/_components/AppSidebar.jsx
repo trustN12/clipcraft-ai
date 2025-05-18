@@ -93,13 +93,13 @@ export function AppSidebar() {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
-            <div className="mx-5 mt-16">
+            {/* <div className="mx-5 mt-16">
               <Link href={"/create-video"}>
                 <Button className="w-full cursor-pointer px-5 py-2  text-sm sm:text-base font-medium text-white bg-gradient-to-r from-orange-500 via-pink-500 to-yellow-400 rounded-xl shadow-[0_4px_20px_rgba(255,150,50,0.3)] transition-all duration-300 hover:scale-[1.04] hover:shadow-[0_4px_30px_rgba(255,180,100,0.5)]">
                   Create Now <VideoIcon />
                 </Button>
               </Link>
-            </div>
+            </div> */}
 
             {/* all the menu items */}
 

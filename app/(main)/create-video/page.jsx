@@ -14,7 +14,6 @@ import { api } from "@/convex/_generated/api";
 import { useAuthContext } from "@/app/ClientSideProvider";
 import { toast } from "sonner";
 
-
 const CreateVideo = () => {
   const [formData, setFormData] = useState({});
   const [loading, setLoading] = useState(false);
@@ -43,10 +42,10 @@ const CreateVideo = () => {
       toast.error("Please complete all fields before generating the video.");
       return;
     }
-  
+
     try {
       setLoading(true);
-  
+
       // Create initial record in Convex
       const resp = await CreateInitialVideoRecord({
         title: formData.title,
@@ -57,17 +56,18 @@ const CreateVideo = () => {
         voice: formData.voiceStyle,
         uid: user?._id,
         createdBy: user?.email,
+        credits: user?.credits,
       });
-  
+
       console.log("Convex Record ID:", resp);
       toast.success("Video created successfully!");
-  
+
       // Call Inngest API to trigger background processing
       const result = await axios.post("/api/generate-video-data", {
         ...formData,
         recordId: resp, // ✅ Safe to use here
       });
-  
+
       console.log("Inngest API Response:", result);
     } catch (error) {
       console.error("Video creation failed:", error);
@@ -76,7 +76,6 @@ const CreateVideo = () => {
       setLoading(false);
     }
   };
-  
 
   return (
     <div>
