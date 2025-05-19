@@ -13,3 +13,4 @@
 - Google GEMINI API(genAI)
 - Inngest@3.35.1 for AI & BACKEND WORKFLOWS(http://localhost:8288/runs)
 - DEEPGRAM AI SDK FOR Speech to Text[captions]
+- remotion for compose image to video 

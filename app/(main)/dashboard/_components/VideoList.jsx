@@ -38,12 +38,12 @@ const VideoList = () => {
         videoId: pendingVideo?._id,
       });
 
-      if(result?.status=='completed'){
+      if (result?.status == "completed") {
         clearInterval(intervalId);
         console.log("video generated successfully");
         GetUserVideoList();
       }
-      console.log("Still Generating...")
+      console.log("Still Generating...");
     }, 7000);
   };
 
@@ -64,33 +64,38 @@ const VideoList = () => {
       ) : (
         <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-7 mt-10 cursor-pointer">
           {videolist?.map((video, index) => (
-            <div
-              className="relative hover:border-orange-500 hover:shadow-[0_0_10px_#ff9900,0_0_20px_#ff1493] rounded-xl"
+            <Link
               key={index}
+              href={`/play-video/user_${
+                user?.name.split(" ")[0].charAt(0) +
+                user?.name.split(" ")[0].slice(1).toLowerCase()
+              }?query=${video?.title.toUpperCase()}&id=${video?._id}`}
             >
-              {video?.status === "completed" ? (
-                <Image
-                  src={video?.images[0]}
-                  alt={video?.title}
-                  width={500}
-                  height={500}
-                  className="w-full object-cover rounded-xl aspect-[2/3]"
-                />
-              ) : (
-                <div className="aspect-[2/3] w-full p-5 rounded-xl bg-slate-900 flex items-center justify-center gap-2">
-                  <RefreshCcw className="animate-spin" />
-                  <h2>Generating...</h2>
+              <div className="relative hover:border-orange-500 hover:shadow-[0_0_10px_#ff9900,0_0_20px_#ff1493] rounded-xl">
+                {video?.status === "completed" ? (
+                  <Image
+                    src={video?.images[0]}
+                    alt={video?.title}
+                    width={500}
+                    height={500}
+                    className="w-full object-cover rounded-xl aspect-[2/3]"
+                  />
+                ) : (
+                  <div className="aspect-[2/3] w-full p-5 rounded-xl bg-slate-900 flex items-center justify-center gap-2">
+                    <RefreshCcw className="animate-spin" />
+                    <h2>Generating...</h2>
+                  </div>
+                )}
+                <div className="absolute bottom-2.5 p-5 w-full bg-black/50">
+                  <h2 className="font-bold tracking-wide text-xl bg-gradient-to-r from-orange-400 to-pink-500 bg-clip-text text-transparent drop-shadow-[0_0_8px_#ff9900aa]">
+                    {video?.title.toUpperCase()}
+                  </h2>
+                  <h2 className="text-sm text-gray-300">
+                    {moment(video?._creationTime).fromNow()}
+                  </h2>
                 </div>
-              )}
-              <div className="absolute bottom-2.5 p-5 w-full bg-black/50">
-                <h2 className="font-bold tracking-wide text-xl bg-gradient-to-r from-orange-400 to-pink-500 bg-clip-text text-transparent drop-shadow-[0_0_8px_#ff9900aa]">
-                  {video?.title.toUpperCase()}
-                </h2>
-                <h2 className="text-sm text-gray-300">
-                  {moment(video?._creationTime).fromNow()}
-                </h2>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       )}
