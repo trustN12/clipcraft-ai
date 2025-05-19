@@ -25,6 +25,7 @@
     "firebase": "^11.6.1",
     "framer-motion": "^12.9.4",
     "inngest": "^3.35.1",
+    "lottie-react": "^2.4.1",
     "lucide-react": "^0.507.0",
     "mime": "^4.0.7",
     "moment": "^2.30.1",

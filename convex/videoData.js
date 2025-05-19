@@ -14,9 +14,7 @@ export const createVideoData = mutation({
     credits: v.number(),
   },
 
-
   handler: async (ctx, args) => {
-
     // Retrieve the current user data to get the current credits
     const user = await ctx.db.get(args.uid);
     console.log("Current User Credits Before Deduction:", user.credits);
@@ -24,7 +22,6 @@ export const createVideoData = mutation({
     if (user.credits <= 0) {
       throw new Error("Insufficient credits to create a video.");
     }
-
 
     // Insert the video data
     const result = await ctx.db.insert("videoData", {
@@ -37,17 +34,17 @@ export const createVideoData = mutation({
       uid: args.uid,
       createdBy: args.createdBy,
       status: "pending",
-      credits: args.credits
+      credits: args.credits,
     });
 
-   // Deduct one credit from the user
-   await ctx.db.patch(args.uid, {
-    credits: user.credits - 1, // Deducting one credit from the current credits
-  });
-  // Log the updated credits
-  const updatedUser  = await ctx.db.get(args.uid);
-  console.log("Updated User Credits After Deduction:", updatedUser .credits);
-  return result;
+    // Deduct one credit from the user
+    await ctx.db.patch(args.uid, {
+      credits: user.credits - 1, // Deducting one credit from the current credits
+    });
+    // Log the updated credits
+    const updatedUser = await ctx.db.get(args.uid);
+    console.log("Updated User Credits After Deduction:", updatedUser.credits);
+    return result;
   },
 });
 
@@ -84,4 +81,14 @@ export const getUserVideos = query({
 
     return result;
   },
+});
+
+export const getVideoById = query({
+  args: {
+    videoId: v.id("videoData"),
+  },
+  handler: async(ctx,args)=>{
+    const result = await ctx.db.get(args.videoId);
+    return result;
+  }
 });

@@ -9,6 +9,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { CircleCheck, CopyIcon, Loader2Icon, Zap } from "lucide-react";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
+import { useAuthContext } from "@/app/ClientSideProvider";
+import NeonModal from "./NeonModal";
 
 const suggestions = [
   "Historic Stories",
@@ -67,8 +69,18 @@ const Topic = ({ onHandleInputChangeMethod }) => {
   const [selectTopic, setSelectedTopic] = useState();
   const [generatedScripts, setGeneratedScripts] = useState(null); // State to hold generated scripts
   const [loading, setLoading] = useState(false);
+  const [showNoCreditsModal, setShowNoCreditsModal] = useState(false);
+  const { user } = useAuthContext();
 
   const generateScript = async () => {
+
+
+    if (user?.credits <= 0) {
+      setShowNoCreditsModal(true); // ✅ SHOW MODAL
+      return;
+    }
+
+
     if (!selectTopic) {
       toast.error("Please select a topic");
       return;
@@ -239,6 +251,13 @@ const Topic = ({ onHandleInputChangeMethod }) => {
           {generatedScripts ? "Re-generate" : "Generate Script"}
         </Button>
       </motion.div>
+
+
+      {/* ✅ Neon Modal */}
+      <NeonModal
+        isOpen={showNoCreditsModal}
+        onClose={() => setShowNoCreditsModal(false)}
+      />
     </div>
   );
 };

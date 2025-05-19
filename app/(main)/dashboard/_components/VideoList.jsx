@@ -27,6 +27,24 @@ const VideoList = () => {
     });
     //  console.log(result);
     setVideolist(result);
+    const isPendingVideo = result?.find((item) => item.status == "pending");
+    isPendingVideo && GetPendingVideoStatus(isPendingVideo);
+  };
+
+  const GetPendingVideoStatus = (pendingVideo) => {
+    const intervalId = setInterval(async () => {
+      // GET VIDEO DATA BY ID
+      const result = await convex.query(api.videoData.getVideoById, {
+        videoId: pendingVideo?._id,
+      });
+
+      if(result?.status=='completed'){
+        clearInterval(intervalId);
+        console.log("video generated successfully");
+        GetUserVideoList();
+      }
+      console.log("Still Generating...")
+    }, 7000);
   };
 
   return (

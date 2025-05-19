@@ -13,10 +13,12 @@ import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useAuthContext } from "@/app/ClientSideProvider";
 import { toast } from "sonner";
+import NeonModal from "./_components/NeonModal";
 
 const CreateVideo = () => {
   const [formData, setFormData] = useState({});
   const [loading, setLoading] = useState(false);
+  const [showNoCreditsModal, setShowNoCreditsModal] = useState(false);
   const { user } = useAuthContext();
   const CreateInitialVideoRecord = useMutation(api.videoData.createVideoData);
 
@@ -31,7 +33,20 @@ const CreateVideo = () => {
     }));
   };
 
+  // const GenerateVideo = async () => {
+    
+  //   if(user?.credits<=0){
+  //     toast('You are ran out of credits!');
+  //   }
+
+
   const GenerateVideo = async () => {
+    if (user?.credits <= 0) {
+      setShowNoCreditsModal(true); // ✅ SHOW MODAL
+      return;
+    }
+
+
     if (
       !formData?.topic ||
       !formData?.script ||
@@ -108,6 +123,13 @@ const CreateVideo = () => {
           <Preview formData={formData} />
         </div>
       </div>
+
+      {/* ✅ Neon Modal */}
+      <NeonModal
+        isOpen={showNoCreditsModal}
+        onClose={() => setShowNoCreditsModal(false)}
+      />
+
     </div>
   );
 };
