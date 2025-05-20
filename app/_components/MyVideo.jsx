@@ -85,7 +85,8 @@ const MyVideo = ({ videoData, setDurationInFrame }) => {
             <Sequence key={index} from={startTime} durationInFrames={duration}>
               <AbsoluteFill>
                 <Img
-                  src={item}
+                  // src={item}
+                  src={`/api/proxy-image?url=${encodeURIComponent(item)}`} 
                   style={{
                     width: "100%",
                     height: "100%",
@@ -126,7 +127,8 @@ const MyVideo = ({ videoData, setDurationInFrame }) => {
       </AbsoluteFill>
       {videoData?.audioUrl && (
         <Audio
-          src={videoData?.audioUrl}
+          // src={videoData?.audioUrl}
+          src={`/api/proxy-audio?url=${encodeURIComponent(videoData?.audioUrl)}`}
           // crossOrigin="anonymous" // Set crossOrigin attribute
         />
       )}
