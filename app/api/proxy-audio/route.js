@@ -1,5 +1,3 @@
-// app/api/proxy-audio/route.js
-
 import { NextResponse } from 'next/server';
 
 export async function GET(request) {
@@ -18,12 +16,15 @@ export async function GET(request) {
     }
 
     const contentType = audioRes.headers.get('content-type') || 'audio/mpeg';
-    const audioBuffer = await audioRes.arrayBuffer();
+    const arrayBuffer = await audioRes.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
 
-    return new NextResponse(audioBuffer, {
+    return new NextResponse(buffer, {
       status: 200,
       headers: {
         'Content-Type': contentType,
+        'Content-Length': buffer.length.toString(),
+        'Accept-Ranges': 'bytes', // ✅ Critical for seeking!
       },
     });
   } catch (err) {

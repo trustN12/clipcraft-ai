@@ -28,7 +28,7 @@ const MyVideo = ({ videoData, setDurationInFrame }) => {
   // };
 
   useEffect(() => {
-    if (videoData) {
+    if (videoData && typeof setDurationInFrame === 'function') {
       const totalDuration = getDurationFrame();
       setDurationInFrame(totalDuration); // Move this here
     }
