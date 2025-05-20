@@ -20,7 +20,7 @@ const [durationInFrame, setDurationInFrame] = useState(100);
         fps={30}
         controls
         style={{
-          width:'25vw',
+          width:'30vw',
           height:'70vh'
         }}
         inputProps={{

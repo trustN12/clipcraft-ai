@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 
-const captions = [
+export const captions = [
   {
     name: "Youtuber",
     style:
