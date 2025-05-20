@@ -28,7 +28,7 @@ const MyVideo = ({ videoData, setDurationInFrame }) => {
   // };
 
   useEffect(() => {
-    if (videoData && typeof setDurationInFrame === 'function') {
+    if (videoData) {
       const totalDuration = getDurationFrame();
       setDurationInFrame(totalDuration); // Move this here
     }
@@ -127,9 +127,7 @@ const MyVideo = ({ videoData, setDurationInFrame }) => {
       </AbsoluteFill>
       {videoData?.audioUrl && (
         <Audio
-          // src={videoData?.audioUrl}
-          src={`/api/proxy-audio?url=${encodeURIComponent(videoData?.audioUrl)}`}
-          // crossOrigin="anonymous" // Set crossOrigin attribute
+        src={`/api/proxy-audio?url=${encodeURIComponent(videoData?.audioUrl)}`}
         />
       )}
     </div>

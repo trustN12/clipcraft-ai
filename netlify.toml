@@ -6,4 +6,11 @@
     Access-Control-Allow-Headers = "Content-Type, Range"
     Access-Control-Expose-Headers = "Content-Length, Content-Range"
     Accept-Ranges = "bytes"
-    Cache-Control = "no-store"
+    Cache-Control = "no-store" # Consider changing this based on your needs
+
+# Optional: If you want to handle OPTIONS requests explicitly
+[[redirects]]
+  from = "/api/*"
+  to = "/api/:splat"
+  status = 200
+  conditions = { Method = ["OPTIONS"] }

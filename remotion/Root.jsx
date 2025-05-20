@@ -7,13 +7,13 @@ export const RemotionRoot = () => {
   return (
     <>
       <Composition
-        id="MyVideo"
+        id="Empty"
         component={MyComposition}
         durationInFrames={60}
         fps={30}
         width={1280}
         height={720}
-        defaultProps={{ videoData }}
+        // defaultProps={{ videoData }}
       />
     </>
   );
